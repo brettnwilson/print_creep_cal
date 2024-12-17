@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Creep Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 { color: #333; font-weight: 600; }
+        .container {
+            max-width: 400px; margin: auto; padding: 20px; background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px;
+        }
+        label { font-weight: 600; }
+        select, input {
+            width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50; color: white; padding: 10px 15px; border: none;
+            border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: 600;
+        }
+        button:hover { background-color: #45a049; }
+        #result { margin-top: 20px; font-size: 1.2rem; color: #333; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Print Creep Calculator</h1>
+        <label for="pageCount">Page Count:</label>
+        <input type="number" id="pageCount" placeholder="Enter total page count">
+        <label for="paperStock">Select Paper Stock:</label>
+        <select id="paperStock">
+            <option value="">-- Select Stock --</option>
+            <option value="0.08">Offset 80gsm</option>
+            <option value="0.103">Satin 113gsm</option>
+        </select>
+        <button onclick="calculateCreep()">Calculate Creep</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculateCreep() {
+            const pageCount = parseInt(document.getElementById('pageCount').value);
+            const paperThickness = parseFloat(document.getElementById('paperStock').value);
+
+            if (pageCount && paperThickness) {
+                const sheets = pageCount / 2; // Total sheets
+                const maxCreep = (sheets / 2) * paperThickness; // Total outward creep
+                document.getElementById('result').innerText = 
+                    `Creep Adjustment: ${maxCreep.toFixed(2)} mm`;
+            } else {
+                document.getElementById('result').innerText = 
+                    "Please enter a valid page count and select a stock.";
+            }
+        }
+    </script>
+</body>
+</html>
